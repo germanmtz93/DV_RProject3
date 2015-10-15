@@ -1,6 +1,4 @@
 Yelp Business Reviews
 ==================
   
-```{r}
-source("~/Documents/Academic/CompSci/Data/git_Proj/02 Data Wrangling/createSQLtbl.R", echo = TRUE)
-```
+

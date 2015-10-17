@@ -27,4 +27,8 @@ full_join(tip, business, by="BUSINESS_ID")  %>% ggplot(aes(x=LIKES, y=REVIEW_COU
 
 inner_join(tip,business, by="BUSINESS_ID") %>% ggplot(aes(x=STARS)) + geom_density() + facet_wrap(~LIKES) + xlab("Number Of Stars") + ylab("Density") + ggtitle("Density plots of Stars with Tip Likes")
 
+
+
+
+
                                                       

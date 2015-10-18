@@ -15,7 +15,7 @@ names(df) <- gsub("\\.+", "_", names(df))
 names(df) <- gsub("Types", "", names(df))
 
 
-measures <- c("ZipZCTA","Population","LandSqMi","DensityPerSqMile") 
+measures <- c("Zip_ZCTA","X2010_Population","Land_Sq_Mi","Density_Per_Sq_Mile") 
 
 # Get rid of special characters in each column.
 # Google ASCII Table to understand the following:

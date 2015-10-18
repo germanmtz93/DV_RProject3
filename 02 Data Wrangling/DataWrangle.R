@@ -13,7 +13,7 @@ head(tip)
 zip <- data.frame(fromJSON(getURL(URLencode('129.152.144.84:5001/rest/native/?query="select * from ZIPPOPDEN"'),httpheader=c(DB='jdbc:oracle:thin:@129.152.144.84:1521/PDBF15DV.usuniversi01134.oraclecloud.internal', USER='cs329e_gfm367', PASS='orcl_gfm367', MODE='native_mode', MODEL='model', returnDimensions = 'False', returnFor = 'JSON'), verbose = TRUE), ))
 summary (zip)
 head(zip)
-View(zip)
+
 
 require(tidyr)
 require(dplyr)
@@ -30,13 +30,15 @@ full_join(tip, business, by="BUSINESS_ID")  %>% ggplot(aes(x=LIKES, y=REVIEW_COU
 inner_join(tip,business, by="BUSINESS_ID") %>% ggplot(aes(x=STARS)) + geom_density() + facet_wrap(~LIKES) + xlab("Number Of Stars") + ylab("Density") + ggtitle("Density plots of Stars with Tip Likes")
 
 #Table 3
+require(stringr)
 buss <- business  
 addr <- buss %>% select (FULL_ADDRESS, STATE)
-addr$ZIPZCTA <- strtoi(substrRight(toString(addr$FULL_ADDRESS),5))
+for (i in 1:61184) {
+      addr$ZIPZCTA[i] <- strtoi(str_sub(toString(business$FULL_ADDRESS[i]),-5))
+}
 bus2 <- full_join(addr, buss, by="FULL_ADDRESS")
-View(bus2)
 
-full_join(zip,bus2 , by = "ZIPZCTA") %>% ggplot(aes(x=STARS, y=DENSITYPERSQMILE)) +geom_point()
+"The reason that this visual is interesting is because it shows a very large spike in review counts for restuarants that are in an area with a small population which is quite opposite of what was to be expected."
 
-
+right_join(zip,bus2 , by = "ZIPZCTA") %>% ggplot(aes(x=POPULATION, y=REVIEW_COUNT, color=STARS)) +geom_point() + xlab("Population of Zip Code Address") + ylab("Number of Reviews for Businesses") + ggtitle("REVIEW COUNTS VS POPULATION")
                                                       
